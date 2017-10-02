@@ -20,6 +20,8 @@ int swi = 0;
 void setup() {
   size(500, 500);
   smooth();
+  noStroke();
+  rectMode(CENTER);
 }
 
 void draw() {
@@ -27,7 +29,39 @@ void draw() {
   textSize(16);
   text("Press any key for illusion", 10, 30); 
 
+  switchDirection();
+  movingRect(x, y, 45);
+  movingRect(x2, y2, 45);
+  movingRect(x3, y3, 135);
+  movingRect(x4, y4, 135);
 
+  if (value == 0) {
+    drawRectangle(70, 250);
+    drawRectangle(430, 250);
+    drawRectangle(260, 70);
+    drawRectangle(260, 430);
+  }
+}
+
+void movingRect(int x, int y, int angle) {
+  pushMatrix();
+  fill(black);
+  translate(x, y);
+  rotate(radians(angle));
+  rect(0, 0, 6, 185);
+  popMatrix();
+}
+
+void drawRectangle(int x, int y) {
+  pushMatrix();
+  fill(yellow);
+  translate(x, y);
+  rotate(radians(45));
+  rect(0, 0, 100, 100);
+  popMatrix();
+}
+
+void switchDirection() {
   if (x == 190) {
     swi = 1;
   }
@@ -37,69 +71,10 @@ void draw() {
   }
 
   if (swi==0) {
-    x++;
-    y++;
-    x2++;
-    y2++;
-    x3++;
-    y3--;
-    x4++;
-    y4--;
+    x++; y++; x2++; y2++; x3++; y3--; x4++; y4--;
   } else {
-    x--;
-    y--;
-    x2--;
-    y2--;
-    x3--;
-    y3++;
-    x4--;
-    y4++;
+    x--; y--; x2--; y2--; x3--; y3++; x4--; y4++;
   }
-
-  movingRect(x, y);
-  movingRect(x2, y2);
-  otherMovingRect(x3, y3);
-  otherMovingRect(x4, y4);
-
-  if (value == 0) {
-    rect(70, 250);
-    rect(430, 250);
-    rect(260, 70);
-    rect(260, 430);
-  }
-}
-
-void movingRect(int x, int y) {
-  pushMatrix();
-  fill(black);
-  translate(x, y);
-  rotate(radians(45));
-  rectMode(CENTER);
-  rect(0, 0, 6, 185);
-  noStroke();
-  popMatrix();
-}
-
-void otherMovingRect(int x, int y) {
-  pushMatrix();
-  fill(black);
-  translate(x, y);
-  rotate(radians(135));
-  rectMode(CENTER);
-  rect(0, 0, 6, 185);
-  noStroke();
-  popMatrix();
-}
-
-void rect(int x, int y) {
-  pushMatrix();
-  fill(yellow);
-  translate(x, y);
-  rotate(radians(45));
-  rectMode(CENTER);
-  rect(0, 0, 100, 100);
-  noStroke();
-  popMatrix();
 }
 
 void keyPressed() {
